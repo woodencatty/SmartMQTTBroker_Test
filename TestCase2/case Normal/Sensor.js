@@ -9,7 +9,7 @@ var sendMessage = setInterval(()=>{
 request.post(
   {
     url: 'http://127.0.0.1:52273',
-    form: { count : count ,timesent : timeNow}
+    form: { Temperature : 32,    Humidity : 40,    AmpSound : 2152, Dust : 21.5214, LightProximity : 25124.52}
   },
   function (err, httpResponse, body) {
     if (err) {
@@ -20,7 +20,7 @@ request.post(
       count ++;
     }
   })
-if(count>100){
+if(count>60000){
   clearInterval(sendMessage);
 }
-}, 5)
+}, 1)

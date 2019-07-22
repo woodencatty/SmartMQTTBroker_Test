@@ -17,7 +17,7 @@ http.createServer(function (request, response) {
       body += data;
     })
     request.on('end', function () {
-      var post = qs.parse(body);0
+      var post = qs.parse(body);
       var timerescived = new Date().getTime();
     //  console.log("data :" + body );
       response.end(timerescived.toString())

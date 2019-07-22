@@ -24,11 +24,26 @@ server.on('published', function (packet, client) {
   console.log('Published', packet.payload);
 });
 
+server.on('subscribed', function (topic, client){
+  console.log(topic);
+})
+
+server.on('unsubscribed', function (topic, client){
+  console.log(topic);
+})
+
 server.on('ready', setup);
 
 // fired when the mqtt server is ready
 function setup() {
   console.log('Mosca server is up and running');
 }
+
+function QueryFilter(Query, ){
+
+
+
+}
+
 
 process.on('SIGINT', function () { console.log("Smart Broker Process Terminated.."); process.exit(); });
