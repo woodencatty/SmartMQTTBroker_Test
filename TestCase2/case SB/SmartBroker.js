@@ -5,6 +5,7 @@ var ascoltatore = {
   type: 'mongo',
   url: 'mongodb://localhost:27017/mqtt',
   pubsubCollection: 'ascoltatori',
+  port: 8080,
   mongo: {}
 };
 

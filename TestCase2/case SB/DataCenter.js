@@ -1,5 +1,5 @@
 var mqtt = require('mqtt')
-var client = mqtt.connect('mqtt://14.32.236.225:1883')
+var client = mqtt.connect('mqtt://14.32.236.225:8080')
 
 var cpuStat = require('cpu-stat');
 
