@@ -21,7 +21,7 @@ request.post(
       count ++;
     }
   })
-if(count>60000){
+if(count>100000){
   clearInterval(sendMessage);
 }
-}, 100) 
+}, 50) 

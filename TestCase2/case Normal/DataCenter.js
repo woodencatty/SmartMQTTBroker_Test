@@ -55,7 +55,7 @@ var sendMessage = setInterval(()=>{
     //the percentage cpu usage over all cores
     console.log(percent);
   });
-}, 1000)
+}, 100)
 
 
 process.on('SIGINT', function () { console.log("IoT Service Process Terminated.."); clearInterval(sendMessage); process.exit(); });

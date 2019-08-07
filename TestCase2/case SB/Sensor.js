@@ -16,14 +16,14 @@ client.on('connect', function () {
     timeNow = new Date().getTime();
     client.publish('/Data', '{"count" : ' + count + ', "timesent" : ' + timeNow + ', "sender" : "'+sender+'"}')
     count++;
-    if (count > 1000) {
+    if (count > 100000) {
       clearInterval(sendMessage);
       client.end();
       setTimeout(() => {
         process.exit();
       }, 100);
     }
-  }, 100)
+  }, 50)
 })
 
 client.on('message', function (topic, message) {
