@@ -1,4 +1,5 @@
 var mosca = require('mosca');
+var requests = require('request');
 
 var ascoltatore = {
   //using ascoltatore
