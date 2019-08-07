@@ -14,10 +14,12 @@ request.post(
   function (err, httpResponse, body) {
     if (err) {
       console.log(err);
-    } else {/*
+    } else {
+      timeReturn = new Date().getTime();
+      /*
       console.log("Message Sent at : " + timeNow);
       console.log("\ndata Arrived at : " + body);*/
-      console.log("Time Easped Try "+ count +" : "+ (timeNow - body) +"("+ timeNow+"-"+body+")");
+      console.log("Time Easped Try "+ count +" : "+ (timeReturn - body) +"("+ timeReturn+"-"+body+")");
 
       count ++;
     }

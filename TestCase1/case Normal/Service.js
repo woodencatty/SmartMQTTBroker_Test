@@ -21,7 +21,7 @@ http.createServer(function (request, response) {
 
       console.log("Time Easped Try "+ post.count +" : "+ (timerescived - post.timesent) +"("+ timerescived+"-"+post.timesent+")");
 
-      response.end(timerescived.toString())
+      response.end(post.timesent)
     })
 
   } else {

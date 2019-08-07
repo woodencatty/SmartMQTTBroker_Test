@@ -34,10 +34,10 @@ http.createServer(function (request, response) {
           } else {
            /* console.log("Message Sent at : " + post.timesent);*/
             console.log("\ndata Arrived at : " + body);
+            response.end(body)
           }
         })
 
-      response.end(timerescived.toString())
     })
 
   } else {
