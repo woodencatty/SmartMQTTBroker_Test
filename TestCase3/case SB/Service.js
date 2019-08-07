@@ -1,5 +1,5 @@
 var mqtt = require('mqtt')
-var client  = mqtt.connect('mqtt://127.0.0.1:1883')
+var client = mqtt.connect('mqtt://192.168.1.168:1883')
 var qs = require('querystring');
 
 client.on('connect', function () {
@@ -14,15 +14,23 @@ client.on('message', function (topic, message) {
   timeNow = new Date().getTime();
 
   var data = JSON.parse(message.toString());
- // console.log("Time Easped Try " + data.count + ": " + (timeNow - data.timesent));
-    console.log(timeNow + "-" + data.timesent);
-  
-    if(data.count > 99){
-      client.end();
-      setTimeout(() => {
-        process.exit();
-      }, 100);
-    }
+
+  console.log('Message Arrived from '+data.sender +' and Return to '+data.sender + ' : ' + '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}');
+  // console.log(timeNow + "-" + data.timesent);
+
+
 })
+
+var sendMessage = setInterval(()=>{
+  cpuStat.usagePercent(function(err, percent, seconds) {
+    if (err) {
+      return console.log(err);
+    }
+  
+    //the percentage cpu usage over all cores
+    console.log(percent);
+  });
+}, 100)
+
 
 process.on('SIGINT', function () { console.log("IoT Service Process Terminated.."); process.exit(); });

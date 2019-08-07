@@ -1,26 +1,44 @@
-var request = require('request');
-
-var timeNow;
+var mqtt = require('mqtt')
+var client  = mqtt.connect('mqtt://192.168.1.168:1883')
+var qs = require('querystring');
 var count = 0;
 
-var sendMessage = setInterval(()=>{
+var sender = "IoTSensor01"
 
-  timeNow = new Date().getTime();
-request.post(
-  {
-    url: 'http://127.0.0.1:52273',
-    form: { count : count ,timesent : timeNow}
-  },
-  function (err, httpResponse, body) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Message Sent at : " + timeNow);
-      console.log("\ndata Arrived at : " + body);
-      count ++;
+client.on('connect', function () {
+  client.subscribe('/DataOnReturn_'+sender, function (err) {
+    if (!err) {
+      console.log("Subscribe Complete")
     }
   })
-if(count>100){
-  clearInterval(sendMessage);
-}
-}, 5)
+  var sendMessage = setInterval(() => {
+
+    timeNow = new Date().getTime();
+    client.publish('/Data', '{"count" : ' + count + ', "timesent" : ' + timeNow + ', "sender" : "'+sender+'"}')
+    count++;
+    if (count > 1000) {
+      clearInterval(sendMessage);
+      client.end();
+      setTimeout(() => {
+        process.exit();
+      }, 100);
+    }
+  }, 100)
+})
+
+client.on('message', function (topic, message) {
+  timeNow = new Date().getTime();
+
+  var data = JSON.parse(message.toString());
+
+  console.log('Message Arrived from '+data.sender +' and Return to '+data.sender + ' : ' + '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}');
+  // console.log(timeNow + "-" + data.timesent);
+  console.log(data.sender + "has Time Easped Try "+ data.count +" in : "+ (data.timesent - timeNow) +"("+ data.timesent+"-"+timeNow+")");
+
+
+})
+
+
+
+
+process.on('SIGINT', function () { console.log("IoT Sensor Process Terminated.."); process.exit(); });

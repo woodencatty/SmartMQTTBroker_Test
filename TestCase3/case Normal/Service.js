@@ -1,16 +1,36 @@
-var request = require('request');
+var mqtt = require('mqtt')
+var client = mqtt.connect('mqtt://192.168.1.168:1883')
+var qs = require('querystring');
 
-var timeNow;
-var count = 0;
+client.on('connect', function () {
+  client.subscribe('/Data', function (err) {
+    if (!err) {
+      console.log("Subscribe Complete")
+    }
+  })
+})
+
+client.on('message', function (topic, message) {
+  timeNow = new Date().getTime();
+
+  var data = JSON.parse(message.toString());
+
+  console.log('Message Arrived from '+data.sender +' and Return to '+data.sender + ' : ' + '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}');
+  // console.log(timeNow + "-" + data.timesent);
+
+
+})
 
 var sendMessage = setInterval(()=>{
-console.time('Time Easped');
-  request('http://127.0.0.1:52273', function (error, response, body) {
-    console.timeEnd('Time Easped')
-    count++;
+  cpuStat.usagePercent(function(err, percent, seconds) {
+    if (err) {
+      return console.log(err);
+    }
+  
+    //the percentage cpu usage over all cores
+    console.log(percent);
   });
+}, 100)
 
-if(count>100){
-  clearInterval(sendMessage);
-}
-}, 5)
+
+process.on('SIGINT', function () { console.log("IoT Service Process Terminated.."); process.exit(); });
