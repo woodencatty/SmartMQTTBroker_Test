@@ -21,7 +21,7 @@ http.createServer(function (request, response) {
     request.on('end', function () {
       var post = qs.parse(body);
       var timerescived = new Date().getTime();
-      console.log(post.sender + " Data Received "+ post.count +" : "+ (timerescived - post.timesent));
+    //  console.log(post.sender + " Data Received "+ post.count +" : "+ (timerescived - post.timesent));
 
     })
 
