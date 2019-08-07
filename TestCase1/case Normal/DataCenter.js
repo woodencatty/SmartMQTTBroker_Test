@@ -23,12 +23,12 @@ http.createServer(function (request, response) {
       var post = qs.parse(body);
       var timerescived = new Date().getTime();
       console.log("Time Easped Try "+ post.count +" : "+ (timerescived - post.timesent));
-
+/*
       request('http://127.0.0.1:52273', function (error, response, body) {
         console.timeEnd('Time Easped')
         count++;
       });
-
+*/
       response.end(timerescived.toString())
     })
 
