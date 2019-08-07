@@ -24,4 +24,4 @@ request.post(
 if(count>100000){
   clearInterval(sendMessage);
 }
-}, 50) 
+}, 10) 

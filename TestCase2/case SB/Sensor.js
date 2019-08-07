@@ -23,7 +23,7 @@ client.on('connect', function () {
         process.exit();
       }, 100);
     }
-  }, 50)
+  }, 10)
 })
 
 client.on('message', function (topic, message) {
