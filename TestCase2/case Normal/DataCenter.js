@@ -1,9 +1,7 @@
 const http = require('http');
-var os 	= require('os-utils');
+var cpuStat = require('cpu-stat');
+
 var qs = require('querystring');
-
-
-
 
 http.createServer(function (request, response) {
 
@@ -31,8 +29,14 @@ http.createServer(function (request, response) {
   }
 }).listen(52273, function () { console.log('REST Data Center Running at http://127.0.0.1:52273'); });
 
-setInterval(()=>{
-  os.cpuUsage(function(v){
-    console.log( 'CPU Usage (%): ' + v );
-  });
-}, 1000)
+cpuStat.usagePercent(function(err, percent, seconds) {
+  if (err) {
+    return console.log(err);
+  }
+
+  //the percentage cpu usage over all cores
+  console.log(percent);
+
+  //the approximate number of seconds the sample was taken over
+  console.log(seconds);
+});
