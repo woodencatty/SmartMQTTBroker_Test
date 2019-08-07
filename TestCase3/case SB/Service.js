@@ -1,6 +1,7 @@
 var mqtt = require('mqtt')
 var client = mqtt.connect('mqtt://192.168.1.168:1883')
 var qs = require('querystring');
+var cpuStat = require('cpu-stat');
 
 client.on('connect', function () {
   client.subscribe('/Data', function (err) {
