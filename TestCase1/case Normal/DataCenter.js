@@ -1,8 +1,7 @@
 const http = require('http');
-var moment = require('moment');
 var qs = require('querystring');
 
-var request = require('request');
+var requests = require('request');
 
 
 http.createServer(function (request, response) {
@@ -23,16 +22,26 @@ http.createServer(function (request, response) {
       var post = qs.parse(body);
       var timerescived = new Date().getTime();
       console.log("Time Easped Try "+ post.count +" : "+ (timerescived - post.timesent));
-/*
-      request('http://127.0.0.1:52273', function (error, response, body) {
-        console.timeEnd('Time Easped')
-        count++;
-      });
-*/
+
+      request.post(
+        {
+          url: 'http://14.32.236.225:8080',
+          form: { count : post.count ,timesent : post.timesent}
+        },
+        function (err, httpResponse, body) {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log("Message Sent at : " + post.timesent);
+            console.log("\ndata Arrived at : " + body);
+            count ++;
+          }
+        })
+
       response.end(timerescived.toString())
     })
 
   } else {
     console.log('other case requested...');
   }
-}).listen(8080, function () { console.log('REST Data Center Running at http://127.0.0.1:52273'); });
+}).listen(8080, function () { console.log('REST Data Center Running at http://210.102.181.221:8080'); });
