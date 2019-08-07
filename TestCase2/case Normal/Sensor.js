@@ -2,14 +2,15 @@ var request = require('request');
 
 var timeNow;
 var count = 0;
+var sender = "IoTSensor01"
 
 var sendMessage = setInterval(()=>{
 
   timeNow = new Date().getTime();
 request.post(
   {
-    url: 'http://127.0.0.1:52273',
-    form: { Temperature : 32,    Humidity : 40,    AmpSound : 2152, Dust : 21.5214, LightProximity : 25124.52}
+    url: 'http://210.102.181.221:8080',
+    form: { Temperature : 32, Humidity : 40, AmpSound : 2152, Dust : 21.5214, LightProximity : 25124.52, count : count ,timesent : timeNow, sender : sender}
   },
   function (err, httpResponse, body) {
     if (err) {
@@ -23,4 +24,4 @@ request.post(
 if(count>60000){
   clearInterval(sendMessage);
 }
-}, 1)
+}, 1) 
