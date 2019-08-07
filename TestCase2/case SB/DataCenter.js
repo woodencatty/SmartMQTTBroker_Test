@@ -1,28 +1,35 @@
-var mqtt = require('mqtt')
-var client = mqtt.connect('mqtt://14.32.236.225:8080')
-
+const http = require('http');
+var qs = require('querystring');
 var cpuStat = require('cpu-stat');
 
+var requests = require('request');
 
-client.on('connect', function () {
-  client.subscribe('/Data', function (err) {
-    if (!err) {
-      console.log("Subscribe Complete")
+
+http.createServer(function (request, response) {
+
+  if (request.method == 'GET') {
+    if (request.url == '/') {
+      timeNow = new Date().getTime();
+      response.end(timeNow.toString());
     }
-  })
-})
+  }
+  else if (request.method == 'POST') {
 
+    var body = '';
+    request.on('data', function (data) {
+      body += data;
+    })
+    request.on('end', function () {
+      var post = qs.parse(body);
+      var timerescived = new Date().getTime();
+      console.log(post.sender + " Data Received "+ post.count +" : "+ (timerescived - post.timesent));
 
-client.on('message', function (topic, message) {
-  timeNow = new Date().getTime();
+    })
 
-  var data = JSON.parse(message.toString());
-
-  console.log('Message Arrived from '+data.sender +' and Return to '+data.sender + ' : ' + '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}');
-  // console.log(timeNow + "-" + data.timesent);
-
-
-})
+  } else {
+    console.log('other case requested...');
+  }
+}).listen(8080, function () { console.log('REST Data Center Running at http://210.102.181.221:8080'); });
 
 var sendMessage = setInterval(()=>{
   cpuStat.usagePercent(function(err, percent, seconds) {
