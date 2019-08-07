@@ -15,10 +15,10 @@ client.on('message', function (topic, message) {
 
   var data = JSON.parse(message.toString());
 
-  console.log('Message Arrived from '+data.sender +' and Return to '+data.sender + ' : ' + '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : '+data.sender+'}');
+  console.log('Message Arrived from '+data.sender +' and Return to '+data.sender + ' : ' + '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}');
   // console.log(timeNow + "-" + data.timesent);
 
-  client.publish('/DataOnReturn_'+data.sender, '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : '+data.sender+'}')
+  client.publish('/DataOnReturn_'+data.sender, '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}')
 
 })
 
