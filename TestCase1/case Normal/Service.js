@@ -19,7 +19,7 @@ http.createServer(function (request, response) {
       var post = qs.parse(body);
       var timerescived = new Date().getTime();
 
-      console.log("Time Easped Try "+ post.count +" : "+ (timerescived - post.timesent) +"("+ timerescived+"-"+post.timesent+")");
+      console.log(post.sender + " Data Received "+ post.count +" : "+ (timerescived - post.timesent));
 
       response.end(post.timesent)
     })

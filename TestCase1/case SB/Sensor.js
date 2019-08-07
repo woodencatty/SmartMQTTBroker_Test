@@ -1,5 +1,5 @@
 var mqtt = require('mqtt')
-var client  = mqtt.connect('mqtt://192.168.1.132:1883')
+var client  = mqtt.connect('mqtt://192.168.1.140:1883')
 var qs = require('querystring');
 var count = 0;
 
@@ -8,7 +8,7 @@ client.on('connect', function () {
   var sendMessage = setInterval(() => {
 
     timeNow = new Date().getTime();
-    client.publish('/Data', '{"count" : ' + count + ', "timesent" : ' + timeNow + '}')
+    client.publish('/Data', '{"count" : ' + count + ', "timesent" : ' + timeNow + ', "sender" : "IoTSensor01"}')
     count++;
     if (count > 100) {
       clearInterval(sendMessage);

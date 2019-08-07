@@ -21,19 +21,19 @@ http.createServer(function (request, response) {
     request.on('end', function () {
       var post = qs.parse(body);
       var timerescived = new Date().getTime();
-      console.log("Time Easped Try "+ post.count +" : "+ (timerescived - post.timesent) +"("+ timerescived+"-"+post.timesent+")");
+      console.log(post.sender + " Data Received "+ post.count +" : "+ (timerescived - post.timesent));
 
       requests.post(
         {
           url: 'http://14.32.236.225:8080',
-          form: { count : post.count ,timesent : post.timesent}
+          form: { count : post.count ,timesent : post.timesent,  sender : post.sender}
         },
         function (err, httpResponse, body) {
           if (err) {
             console.log(err);
           } else {
-           /* console.log("Message Sent at : " + post.timesent);*/
-            console.log("\ndata Arrived at : " + body);
+           /* console.log("Message Sent at : " + post.timesent);
+            console.log("\ndata Arrived at : " + body);*/
             response.end(body)
           }
         })
