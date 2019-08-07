@@ -14,15 +14,12 @@ client.on('message', function (topic, message) {
   timeNow = new Date().getTime();
 
   var data = JSON.parse(message.toString());
-  console.log("Time Easped Try " + data.count + ": " + (timeNow - data.timesent));
+
+  console.log('Message Arrived from '+data.sender +' and Return to '+data.sender + ' : ' + '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}');
   // console.log(timeNow + "-" + data.timesent);
 
-  if (data.count > 99) {
-    client.end();
-    setTimeout(() => {
-      process.exit();
-    }, 100);
-  }
+  client.publish('/DataOnReturn_'+data.sender, '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}')
+
 })
 
 process.on('SIGINT', function () { console.log("IoT Service Process Terminated.."); process.exit(); });
