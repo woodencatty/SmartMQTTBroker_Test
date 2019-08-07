@@ -8,7 +8,7 @@ var sendMessage = setInterval(()=>{
   timeNow = new Date().getTime();
 request.post(
   {
-    url: 'http://127.0.0.1:52273',
+    url: 'http://210.102.181.221:8080',
     form: { count : count ,timesent : timeNow}
   },
   function (err, httpResponse, body) {

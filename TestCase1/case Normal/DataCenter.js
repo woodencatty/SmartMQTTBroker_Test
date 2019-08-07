@@ -2,6 +2,9 @@ const http = require('http');
 var moment = require('moment');
 var qs = require('querystring');
 
+var request = require('request');
+
+
 http.createServer(function (request, response) {
 
   if (request.method == 'GET') {
@@ -20,10 +23,16 @@ http.createServer(function (request, response) {
       var post = qs.parse(body);
       var timerescived = new Date().getTime();
       console.log("Time Easped Try "+ post.count +" : "+ (timerescived - post.timesent));
+
+      request('http://127.0.0.1:52273', function (error, response, body) {
+        console.timeEnd('Time Easped')
+        count++;
+      });
+
       response.end(timerescived.toString())
     })
 
   } else {
     console.log('other case requested...');
   }
-}).listen(52273, function () { console.log('REST Data Center Running at http://127.0.0.1:52273'); });
+}).listen(8080, function () { console.log('REST Data Center Running at http://127.0.0.1:52273'); });
