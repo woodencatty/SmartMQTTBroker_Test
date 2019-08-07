@@ -1,5 +1,6 @@
 const http = require('http');
 var qs = require('querystring');
+var cpuStat = require('cpu-stat');
 
 var requests = require('request');
 
