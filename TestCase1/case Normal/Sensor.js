@@ -17,6 +17,8 @@ request.post(
     } else {
       console.log("Message Sent at : " + timeNow);
       console.log("\ndata Arrived at : " + body);
+      console.log("Time Easped Try "+ count +" : "+ (timeNow - body) +"("+ timeNow+"-"+body+")");
+
       count ++;
     }
   })
