@@ -1,35 +1,39 @@
-const http = require('http');
-var os 	= require('os-utils');
+var mqtt = require('mqtt')
+var client = mqtt.connect('mqtt://192.168.1.168:1883')
 var qs = require('querystring');
 
-http.createServer(function (request, response) {
-
-  if (request.method == 'GET') {
-    if (request.url == '/') {
-      timeNow = new Date().getTime();
-      response.end("{ Temperature : 32,    Humidity : 40,    AmpSound : 2152, Dust : 21.5214, LightProximity : 25124.52}");
+client.on('connect', function () {
+  client.subscribe('/Data', function (err) {
+    if (!err) {
+      console.log("Subscribe Complete")
     }
-  }
-  else if (request.method == 'POST') {
+  })
+})
 
-    var body = '';
-    request.on('data', function (data) {
-      body += data;
-    })
-    request.on('end', function () {
-      var post = qs.parse(body);
-      var timerescived = new Date().getTime();
-    //  console.log("data :" + body );
-      response.end(timerescived.toString())
-    })
 
-  } else {
-    console.log('other case requested...');
-  }
-}).listen(52273, function () { console.log('REST Data Center Running at http://127.0.0.1:52273'); });
+client.on('message', function (topic, message) {
+  timeNow = new Date().getTime();
 
-setInterval(()=>{
-  os.cpuUsage(function(v){
-    console.log( 'CPU Usage (%): ' + v );
+  var data = JSON.parse(message.toString());
+
+  console.log('Message Arrived from '+data.sender +' and Return to '+data.sender + ' : ' + '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}');
+  // console.log(timeNow + "-" + data.timesent);
+
+
+})
+
+var sendMessage = setInterval(()=>{
+  cpuStat.usagePercent(function(err, percent, seconds) {
+    if (err) {
+      return console.log(err);
+    }
+  
+    //the percentage cpu usage over all cores
+    console.log(percent);
   });
 }, 1000)
+
+
+process.on('SIGINT', function () { console.log("IoT Service Process Terminated.."); clearInterval(sendMessage); process.exit(); });
+
+
