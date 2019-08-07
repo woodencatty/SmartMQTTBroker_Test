@@ -17,7 +17,7 @@ client.on('connect', function () {
         process.exit();
       }, 100);
     }
-  }, 5)
+  }, 100)
 })
 
 
