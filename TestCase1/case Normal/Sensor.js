@@ -14,9 +14,9 @@ request.post(
   function (err, httpResponse, body) {
     if (err) {
       console.log(err);
-    } else {
+    } else {/*
       console.log("Message Sent at : " + timeNow);
-      console.log("\ndata Arrived at : " + body);
+      console.log("\ndata Arrived at : " + body);*/
       console.log("Time Easped Try "+ count +" : "+ (timeNow - body) +"("+ timeNow+"-"+body+")");
 
       count ++;

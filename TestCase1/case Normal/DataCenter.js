@@ -31,9 +31,9 @@ http.createServer(function (request, response) {
         function (err, httpResponse, body) {
           if (err) {
             console.log(err);
-          } else {
+          } else {/*
             console.log("Message Sent at : " + post.timesent);
-            console.log("\ndata Arrived at : " + body);
+            console.log("\ndata Arrived at : " + body);*/
           }
         })
 
