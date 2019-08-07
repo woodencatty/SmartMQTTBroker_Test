@@ -1,9 +1,6 @@
 const http = require('http');
 var qs = require('querystring');
 
-var requests = require('request');
-
-
 http.createServer(function (request, response) {
 
   if (request.method == 'GET') {

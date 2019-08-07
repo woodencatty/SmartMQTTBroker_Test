@@ -23,7 +23,7 @@ http.createServer(function (request, response) {
       var timerescived = new Date().getTime();
       console.log("Time Easped Try "+ post.count +" : "+ (timerescived - post.timesent));
 
-      request.post(
+      requests.post(
         {
           url: 'http://14.32.236.225:8080',
           form: { count : post.count ,timesent : post.timesent}
