@@ -20,7 +20,7 @@ request.post(
       count ++;
     }
   })
-if(count>100){
+if(count>1000){
   clearInterval(sendMessage);
 }
 }, 100)
