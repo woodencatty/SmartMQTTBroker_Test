@@ -1,5 +1,5 @@
 var mqtt = require('mqtt')
-var client  = mqtt.connect('mqtt://127.0.0.1:1883')
+var client  = mqtt.connect('mqtt://192.9.44.51:1883')
 var qs = require('querystring');
 var count = 0;
 
@@ -30,7 +30,7 @@ client.on('message', function (topic, message) {
 
   var data = JSON.parse(message.toString());
 
-  console.log('Message Arrived from '+data.sender +' and Return to '+data.sender + ' : ' + '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}');
+  //console.log('Message Arrived from '+data.sender +' and Return to '+data.sender + ' : ' + '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}');
   // console.log(timeNow + "-" + data.timesent);
   console.log(data.sender + "has Time Easped Try "+ data.count +" in : "+ (timeNow - data.timesent) +"("+timeNow+"-"+ data.timesent+")");
 
