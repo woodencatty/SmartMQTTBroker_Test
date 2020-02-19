@@ -1,5 +1,5 @@
 var mqtt = require('mqtt')
-var client  = mqtt.connect('mqtt://127.0.0.1:1883')
+var client  = mqtt.connect('mqtt://192.9.44.51:1883')
 var qs = require('querystring');
 var count = 0;
 
