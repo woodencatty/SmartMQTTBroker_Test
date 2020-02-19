@@ -12,11 +12,10 @@ client.on('connect', function () {
     }
   })
   var sendMessage = setInterval(() => {
-
     timeNow = new Date().getTime();
     client.publish('/Data', '{"count" : ' + count + ', "timesent" : ' + timeNow + ', "sender" : "'+sender+'"}')
     count++;
-    if (count > 1000) {
+    if (count > 100) {
       clearInterval(sendMessage);
       client.end();
       setTimeout(() => {
@@ -33,11 +32,10 @@ client.on('message', function (topic, message) {
 
   console.log('Message Arrived from '+data.sender +' and Return to '+data.sender + ' : ' + '{"count" : ' + data.count + ', "timesent" : ' + data.timesent + ', "sender" : "'+data.sender+'"}');
   // console.log(timeNow + "-" + data.timesent);
-  console.log(data.sender + "has Time Easped Try "+ data.count +" in : "+ (data.timesent - timeNow) +"("+ data.timesent+"-"+timeNow+")");
+  console.log(data.sender + "has Time Easped Try "+ data.count +" in : "+ (timeNow - data.timesent) +"("+timeNow+"-"+ data.timesent+")");
 
 
 })
-
 
 
 
