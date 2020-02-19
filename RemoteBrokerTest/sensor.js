@@ -16,7 +16,7 @@ client.on('connect', function () {
     timeNow = new Date().getTime();
     client.publish('/Data', '{"count" : ' + count + ', "timesent" : ' + timeNow + ', "sender" : "'+sender+'"}')
     count++;
-    if (count > 100) {
+    if (count > 1000) {
       clearInterval(sendMessage);
       client.end();
       setTimeout(() => {
